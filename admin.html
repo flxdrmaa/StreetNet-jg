@@ -256,7 +256,6 @@
     Record: "record"
   };
 
-  const value = document.getElementById(inputId).value.trim();
 
   function previewImage(input, previewId) {
     const img = document.getElementById(previewId);
@@ -289,7 +288,7 @@
   function updateField(field) {
     const zone = document.getElementById("territory").value;
     const inputId = fieldMap[field];
-    const value = document.getElementById(inputId).value;
+    const value = document.getElementById(inputId).value.trim();
 
     fetch(SHEET_API + "/Zone/" + zone, {
       method: "PATCH",
