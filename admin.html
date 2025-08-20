@@ -243,31 +243,61 @@
   </div>
 
   <script>
-    const SHEET_API = "https://api.sheetbest.com/sheets/e7bbeb69-7841-407e-a6b8-615ef00bd70d";
+  const SHEET_API = "https://api.sheetbest.com/sheets/e7bbeb69-7841-407e-a6b8-615ef00bd70d";
 
-    function previewImage(input, previewId) {
-      const img = document.getElementById(previewId);
-      if (input.value) {
-        img.src = input.value;
-        img.style.display = "block";
-      } else {
-        img.style.display = "none";
-      }
+  const fieldMap = {
+    MainMap: "mainMap",
+    Owner: "name",
+    LogoMap: "logoMap",
+    LogoInfo: "logoInfo",
+    Length: "length",
+    Round: "round",
+    Cash: "cash",
+    Record: "record"
+  };
+
+  function previewImage(input, previewId) {
+    const img = document.getElementById(previewId);
+    if (input.value) {
+      img.src = input.value;
+      img.style.display = "block";
+    } else {
+      img.style.display = "none";
     }
+  }
 
-    function updateField(field) {
-      const zone = document.getElementById("territory").value;
-      const value = document.getElementById(field.toLowerCase()).value;
+  function showNotification(message, success = true) {
+    const notif = document.createElement("div");
+    notif.textContent = message;
+    notif.style.position = "fixed";
+    notif.style.top = "20px";
+    notif.style.right = "20px";
+    notif.style.padding = "12px 18px";
+    notif.style.borderRadius = "10px";
+    notif.style.fontSize = "14px";
+    notif.style.fontWeight = "600";
+    notif.style.color = "#fff";
+    notif.style.zIndex = "9999";
+    notif.style.background = success ? "#22c55e" : "#ef4444";
+    notif.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 3000);
+  }
 
-      fetch(SHEET_API + "/Zone/" + zone, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ [field]: value })
-      })
-      .then(res => res.json())
-      .then(() => alert(`✅ ${field} berhasil diupdate!`))
-      .catch(err => alert("❌ Gagal update: " + err));
-    }
-  </script>
+  function updateField(field) {
+    const zone = document.getElementById("territory").value;
+    const inputId = fieldMap[field];
+    const value = document.getElementById(inputId).value;
+
+    fetch(SHEET_API + "/Zone/" + zone, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ [field]: value })
+    })
+    .then(res => res.json())
+    .then(() => showNotification(`✅ ${field} berhasil diupdate!`, true))
+    .catch(err => showNotification("❌ Gagal update: " + err, false));
+  }
+</script>
 </body>
 </html>
