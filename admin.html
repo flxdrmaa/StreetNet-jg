@@ -256,6 +256,8 @@
     Record: "record"
   };
 
+  const value = document.getElementById(inputId).value.trim();
+
   function previewImage(input, previewId) {
     const img = document.getElementById(previewId);
     if (input.value) {
