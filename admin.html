@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚙️ Admin Panel Territory</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #1a1a2e, #16213e, #0f3460);
+      color: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #b0b0b0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(45, 55, 72, 0.8);
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    select:focus, input:focus {
+      background: rgba(45, 55, 72, 1);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+
+    .preview {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .preview img {
+      max-width: 200px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .preview img:hover {
+      transform: scale(1.05);
+    }
+
+    .update-btn {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .update-btn:hover {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .update-btn:active {
+      transform: scale(0.98);
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .input-group {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>⚙️ Admin Panel Territory</h2>
+
+      <!-- Territory Selection -->
+      <div class="section">
+        <label for="territory">Pilih Territory</label>
+        <select id="territory">
+          <option value="Zone 1">Downtown</option>
+          <option value="Zone 2">Juniper Hill</option>
+          <option value="Zone 3">Ocean Flat</option>
+          <option value="Zone 4">Easter Bay</option>
+          <option value="Zone 5">Foster Faley</option>
+          <option value="Zone 6">Emerald Isle</option>
+          <option value="Zone 7">Red Sands</option>
+          <option value="Zone 9">Linden Station</option>
+          <option value="Zone 8">Old Venturas Strip</option>
+          <option value="Zone 10">Blueberry</option>
+          <option value="Zone 11">Ocean Docks</option>
+        </select>
+      </div>
+
+      <!-- Map and Owner Section -->
+      <div class="section">
+        <div class="input-group">
+          <div>
+            <label for="mainMap">Link Map Utama</label>
+            <input type="url" id="mainMap" placeholder="https://contoh.com/map.png" oninput="previewImage(this, 'mainMapPreview')">
+            <div class="preview"><img id="mainMapPreview" alt="Preview Map Utama" style="display:none;"></div>
+            <button type="button" class="update-btn" onclick="updateField('MainMap')">Update</button>
+          </div>
+          <div>
+            <label for="name">Nama Club</label>
+            <input type="text" id="name" placeholder="Masukkan nama Club">
+            <button type="button" class="update-btn" onclick="updateField('Owner')">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logos Section -->
+      <div class="section">
+        <div class="input-group">
+          <div>
+            <label for="logoMap">Link Logo</label>
+            <input type="url" id="logoMap" placeholder="https://contoh.com/logo.png" oninput="previewImage(this, 'logoMapPreview')">
+            <div class="preview"><img id="logoMapPreview" alt="Preview Logo Map" style="display:none;"></div>
+            <button type="button" class="update-btn" onclick="updateField('LogoMap')">Update</button>
+          </div>
+          <div>
+            <label for="logoInfo">Link Logo (InfoBox)</label>
+            <input type="url" id="logoInfo" placeholder="https://contoh.com/logo.png" oninput="previewImage(this, 'logoInfoPreview')">
+            <div class="preview"><img id="logoInfoPreview" alt="Preview Logo Info" style="display:none;"></div>
+            <button type="button" class="update-btn" onclick="updateField('LogoInfo')">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track Details Section -->
+      <div class="section">
+        <div class="input-group">
+          <div>
+            <label for="length">Length</label>
+            <input type="text" id="length" placeholder="Contoh: 3.2 Miles">
+            <button type="button" class="update-btn" onclick="updateField('Length')">Update</button>
+          </div>
+          <div>
+            <label for="round">Round</label>
+            <input type="number" id="round" placeholder="Contoh: 3">
+            <button type="button" class="update-btn" onclick="updateField('Round')">Update</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rewards and Record Section -->
+      <div class="section">
+        <div class="input-group">
+          <div>
+            <label for="cash">Cash</label>
+            <input type="number" id="cash" placeholder="Contoh: 5000">
+            <button type="button" class="update-btn" onclick="updateField('Cash')">Update</button>
+          </div>
+          <div>
+            <label for="record">Record</label>
+            <input type="text" id="record" placeholder="Contoh: 02:15.35">
+            <button type="button" class="update-btn" onclick="updateField('Record')">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_API = "https://api.sheetbest.com/sheets/d7276630-2475-4dbe-82c4-328e0dd9fb19";
+
+    function previewImage(input, previewId) {
+      const img = document.getElementById(previewId);
+      if (input.value) {
+        img.src = input.value;
+        img.style.display = "block";
+      } else {
+        img.style.display = "none";
+      }
+    }
+
+    function updateField(field) {
+      const zone = document.getElementById("territory").value;
+      const value = document.getElementById(field.toLowerCase()).value;
+
+      fetch(SHEET_API + "/Zone/" + zone, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [field]: value })
+      })
+      .then(res => res.json())
+      .then(() => alert(`✅ ${field} berhasil diupdate!`))
+      .catch(err => alert("❌ Gagal update: " + err));
+    }
+  </script>
+</body>
+</html>
